@@ -1,11 +1,15 @@
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
+import { connect } from 'react-redux'
+import todosAction from './actions/todosAction';
+import { useEffect } from 'react';
+import {fetchData} from './controllers/database';
+const App = (props) => {
+  useEffect(() => {
+    props.onFetchData();
+    console.log(props.onTodosAction("samet"));
+  }, []);
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
@@ -21,5 +25,9 @@ function App() {
     </div>
   );
 }
-
-export default App;
+const mapStateToProps = state => state;
+const mapDispatchToProps = {
+  onTodosAction: todosAction,
+  onFetchData:fetchData
+}
+export default connect(mapStateToProps, mapDispatchToProps)(App);
